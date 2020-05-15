@@ -112,7 +112,7 @@ fetch('http://my-backend-api/my-stems/stem-1234/index.json')
 
 ## API
 
-You can also call various functions to control the player: `player.start, player.pause, player.stop, player.destroy, player.export`. Most should be self-explanatory, however we will highlight,
+You can also call various functions to control the player: `player.start, player.pause, player.stop, player.destroy, player.export`. Most should be self-explanatory, however we will highlight `destroy` and `export`.
 
 ### Destroying the player
 
