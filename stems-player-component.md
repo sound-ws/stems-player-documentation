@@ -125,7 +125,7 @@ One can export the state of the player by calling `player.export`. This will the
 ```json
 {
   "id": "TRACK1234",
-  "volume": 1, // the master volume
+  "volume": 1,
   "label": "The name of TRACK1234",
   "stems": [
     {
