@@ -130,7 +130,7 @@ fetch('http://my-backend-api/my-stems/stem-1234')
 
 ## Waveforms
 
-Due to the fact that the player only downloads segments of each stem at a time, generating the waveform on the client is not feasible. Therefore the waveforms need to be pregenerated. The player uses the same waveform drawer as Wavesurfer [where you can find instructions on how to generate the waveforms](https://wavesurfer-js.org/faq/).
+Due to the fact that the player only downloads segments of each stem at a time, generating the waveform on the client is not feasible. Therefore the waveforms need to be pre-generated. The player uses the same waveform drawer as Wavesurfer [where you can find instructions on how to generate the waveforms](https://wavesurfer-js.org/faq/).
 
 ## API
 
