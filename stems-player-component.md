@@ -1,4 +1,10 @@
-# The stems player browser component
+# The Stems Player Browser Component
+
+The [Sound Web Services Stems Player](https://www.sound.ws/stems) can play stems in the browser using audio served directly using Content Delivery Networks, such as Cloudfront.
+
+## Browser Support
+
+The Sound Web Services Stems Player only works in [browsers supporting Web Audio](https://caniuse.com/#feat=audio-api).
 
 ## Pulling the player code
 
@@ -26,37 +32,26 @@ npm install
 
 ## Instantiating the Stems Player
 
-1. Create a container where the Stems player should be placed into.
+Create a container where the Stems player should be placed into.
 
 ```html
 <div id="my-stems-player"></div>
 ```
 
+Using a module bundler such as webpack, create an instance of the player.
+
 ```js
-// Either using es6
+// Either using es6 import
 import { StemsPlayer } from '@sound-ws/stems-player';
-// or es5
-// const StemsPlayer = require('@sound-ws/stems-player');
+// or es5 commonjs/requirejs
+const StemsPlayer = require('@sound-ws/stems-player');
 
 const player = StemsPlayer.create('#my-stems-player', {
   // See the player options below
-  renderer: {
-    background: 'rgba(0,0,0,0.6)',
-    color: 'white',
-    backgroundStem: 'rgba(0,0,0,0.1)',
-    waveform: {
-      waveColor: 'red',
-      progressColor: '#63ddb3',
-      barWidth: 0,
-      barGap: 0,
-    },
-  },
 });
 ```
 
-## Parameters
-
-### Options for the Renderer
+## Options
 
 The renderer accepts the following options
 
@@ -66,7 +61,7 @@ const player = StemsPlayer.create('#my-stems-player', {
   color: 'white',
   backgroundStem: 'rgba(0,0,0,0.1)',
   waveform: {
-    // see https://wavesurfer-js.org/docs/options.html for a full list of parameters
+    // see https://wavesurfer-js.org/docs/options.html for a full list of accepted parameters for styling the waveform
     waveColor: 'red',
     progressColor: '#63ddb3',
     barWidth: 0,
@@ -87,8 +82,34 @@ const player = StemsPlayer.create('#my-stems-player', {
 
 ## Loading the audio
 
+### The source M3U8 file
+
+The player consumes a set of m3u8 files. Each m3u8 file represents a single stem, split out into segments of varying duration and start times.
+
+```txt
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-ALLOW-CACHE:YES
+#EXT-X-TARGETDURATION:11
+#EXTINF:10.002667,
+FC_EVO_311_1_Bring_You_Down_5_Piano-000.mp3
+#EXTINF:10.002667,
+FC_EVO_311_1_Bring_You_Down_5_Piano-001.mp3
+#EXTINF:10.002667,
+FC_EVO_311_1_Bring_You_Down_5_Piano-002.mp3
+#EXTINF:10.002667,
+...
+#EXT-X-ENDLIST
+```
+
+Look here for [instructions on how to generate segments of the source stems and m3u8 files](https://github.com/sound-ws/docker-generate-stems).
+
+### Example loading
+
 ```js
-fetch('http://my-backend-api/my-stems/stem-1234/index.json')
+// We're assuming a hypothetical endpoint, maintained by the client, that returns data relating stems
+fetch('http://my-backend-api/my-stems/stem-1234')
   .then((response) => {
     return response.json();
   })
@@ -97,22 +118,26 @@ fetch('http://my-backend-api/my-stems/stem-1234/index.json')
       .load({
         stems: data.stems.map((stem) => {
           return {
-            id: stem.id,
-            src: stem.src,
-            waveform: stem.waveform,
-            label: stem.label,
+            id: stem.id, // any
+            label: stem.label, // string
+            src: stem.src, // string (a url pointing to a m3u8 document)
+            waveform: stem.waveform, // string (a url pointing to a json document)
           };
         }),
       })
       .then(() => {
-        // The player is ready to start playing
+        player.start();
       });
   });
 ```
 
+## Waveforms
+
+Due to the fact that the player only downloads segments of each stem at a time, generating the waveform on the client is not feasible. Therefore the waveforms need to be pregenerated. The player uses the same waveform drawer as Wavesurfer [where you can find instructions on how to generate the waveforms](https://wavesurfer-js.org/faq/).
+
 ## API
 
-You can also call various functions to control the player: `player.start, player.pause, player.stop, player.destroy, player.export`. Most should be self-explanatory, however we will highlight `destroy` and `export`.
+You can also call various functions to control the player: `player.start, player.pause, player.stop, player.destroy, player.export, player.seek`. Most should be self-explanatory, however we will highlight `player.destroy` and `player.export`.
 
 ### Destroying the player
 
@@ -144,16 +169,37 @@ One can export the state of the player by calling `player.export`. This will the
 
 which can be used to send to The Sound Web Services Audio Service in order to generate a high quality mix. (This will be a separate component. Documentation on this to follow)
 
-## Events
+### Events
 
 You can bind to these events
 
 ```js
-player.on('ready', () => {
-  player.play();
-});
+// when the player has initialised and is ready to start playing
+player.on('ready', () => {});
 
-player.on('error', (err) => {
-  console.error('An error has occured', err);
-});
+// When the user seeks
+player.on('play', () => {});
+
+// When the user pauses
+player.on('pause', () => {});
+
+// When the user seeks
+player.on('seek', () => {});
+
+// When the player starts loading data
+player.on('buffering-start', () => {});
+
+// When the player is done loading data
+player.on('buffering-end', () => {});
+
+// When an error occurs
+player.on('error', (err) => {});
+
+// When the player is destroyed
+player.on('destroy', () => {});
 ```
+
+## Links
+
+- https://developers.google.com/web/updates/2017/09/autoplay-policy-changes
+- https://wavesurfer-js.org/docs/options.html
