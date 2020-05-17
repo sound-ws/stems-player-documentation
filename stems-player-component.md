@@ -195,6 +195,9 @@ player.on('buffering-end', () => {});
 // When an error occurs
 player.on('error', (err) => {});
 
+// When the player completed playback
+player.on('end', () => {});
+
 // When the player is destroyed
 player.on('destroy', () => {});
 ```
