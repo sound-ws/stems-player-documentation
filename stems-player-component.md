@@ -1,16 +1,16 @@
-# The Stems Player Browser Component
+# The Stems Player Browser Component (DRAFT)
 
 The [Sound Web Services Stems Player](https://www.sound.ws/stems) can play stems in the browser using audio served directly using Content Delivery Networks, such as Cloudfront.
 
 ## Browser Support
 
-The Sound Web Services Stems Player only works in [browsers supporting Web Audio](https://caniuse.com/#feat=audio-api).
+The Player works in [browsers supporting Web Audio](https://caniuse.com/#feat=audio-api). This includes most modern browsers.
 
 ## Pulling the player code
 
 The Sound Web Services Stems Player is hosted on a private github npm repository. Once you have been granted read-access to this repository, you can pull the npm package and use it in your application, [but first you must configure npm (or yarn) for use with GitHub Packages](https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-npm-for-use-with-github-packages).
 
-then create a package.json with the stems-player package in its dependencies.
+(a) then either create a package.json with the stems-player package in its dependencies.
 
 ```json
 {
@@ -24,11 +24,13 @@ then create a package.json with the stems-player package in its dependencies.
 }
 ```
 
-then install the player
+and install the player
 
 ```sh
 npm install
 ```
+
+or (b) simply execute `npm install @sound-ws/stems-player@1.0.0-alpha.28` in the application root (containing the package.json).
 
 ## Instantiating the Stems Player
 
@@ -53,27 +55,22 @@ const player = StemsPlayer.create('#my-stems-player', {
 
 ## Options
 
-The renderer accepts the following options
+The player accepts the following options
 
 ```js
 const player = StemsPlayer.create('#my-stems-player', {
-  background: 'rgba(0,0,0,0.6)',
-  color: 'white',
-  backgroundStem: 'rgba(0,0,0,0.1)',
-  waveform: {
-    // see https://wavesurfer-js.org/docs/options.html for a full list of accepted parameters for styling the waveform
-    waveColor: 'red',
-    progressColor: '#63ddb3',
-    barWidth: 0,
-    barGap: 0,
+  renderer: {
+    background: 'rgba(0,0,0,0.6)',
+    color: 'white',
+    backgroundStem: 'rgba(0,0,0,0.1)',
+    waveform: {
+      // see https://wavesurfer-js.org/docs/options.html for a full list of accepted parameters for styling the waveform
+      waveColor: 'red',
+      progressColor: '#63ddb3',
+      barWidth: 0,
+      barGap: 0,
+    },
   },
-});
-```
-
-The HttpStreamDriver accepts the following options
-
-```js
-const player = StemsPlayer.create('#my-stems-player', {
   driver: {
     audioContext: myOwnAudioContext, // = optional
   },
