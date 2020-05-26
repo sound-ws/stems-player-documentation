@@ -30,7 +30,7 @@ and install the player
 npm install
 ```
 
-or (b) simply execute `npm install @sound-ws/stems-player@1.0` in the application root (containing the package.json).
+or (b) simply execute `npm install @sound-ws/stems-player@1.0.0-alpha.28` in the application root (containing the package.json).
 
 ## Instantiating the Stems Player
 
