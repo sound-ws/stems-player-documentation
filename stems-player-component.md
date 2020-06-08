@@ -6,6 +6,12 @@ The [Sound Web Services Stems Player](https://www.sound.ws/stems) can play stems
 
 The Player works in [browsers supporting Web Audio](https://caniuse.com/#feat=audio-api). This includes most modern browsers.
 
+In addition, the player component is transpiled by babel to support `">0.25%, not dead", "not ie 11", "not op_mini all"`, meaning
+
+- Any browser which at the time of compilaton has more than `0.25%` usage.
+- IE 11 and Opera Mini are not supported since neither supports the [web-audio api](https://caniuse.com/#search=webaudio)
+- "Not dead" is defined as ["browsers without official support or updates for 24 months. Right now it is IE 10, IE_Mob 11, BlackBerry 10, BlackBerry 7, Samsung 4 and OperaMobile 12.1."](https://github.com/browserslist/browserslist/blob/master/README.md).
+
 ## Pulling the player code
 
 The Sound Web Services Stems Player is hosted on a private github npm repository. Once you have been granted read-access to this repository, you can pull the npm package and use it in your application, [but first you must configure npm (or yarn) for use with GitHub Packages](https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-npm-for-use-with-github-packages).
