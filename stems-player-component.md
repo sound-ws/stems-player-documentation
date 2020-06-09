@@ -59,6 +59,19 @@ const player = StemsPlayer.create('#my-stems-player', {
 });
 ```
 
+Or load the stems-player library into your HTML page
+
+```html
+<script src="node_modules/@sound-ws/stems-player/dist/sound-ws-stems-player.js"></script>
+<div id="my-stems-player"></div>
+...
+<script>
+  const player = SoundWS.StemsPlayer.create('#my-stems-player', {
+    // See the player options below
+  });
+</script>
+```
+
 ## Options
 
 The player accepts the following options
@@ -133,6 +146,8 @@ fetch('http://my-backend-api/my-stems/stem-1234')
       });
   });
 ```
+
+Please make sure that when loading any files from another server that the response contains adequate [CORS headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS).
 
 ## Waveforms
 
