@@ -124,7 +124,7 @@ Look here for [instructions on how to generate segments of the source stems and 
 ### Example loading
 
 ```js
-// We're assuming a hypothetical endpoint, maintained by the client, that returns data relating stems
+// We're assuming a hypothetical endpoint, maintained by the client, that returns data relating to stems
 fetch('http://my-backend-api/my-stems/stem-1234')
   .then((response) => {
     return response.json();
