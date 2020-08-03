@@ -36,7 +36,7 @@ and install the player
 npm install
 ```
 
-or (b) simply execute `npm install @sound-ws/stems-player@1.0.0-alpha.28` in the application root (containing the package.json).
+or (b) simply execute `npm install @sound-ws/stems-player@1.0.0` in the application root (containing the package.json).
 
 ## Instantiating the Stems Player
 
@@ -54,7 +54,7 @@ import { StemsPlayer } from '@sound-ws/stems-player';
 // or es5 commonjs/requirejs
 const StemsPlayer = require('@sound-ws/stems-player');
 
-const player = StemsPlayer.create('#my-stems-player', {
+const player = SoundWS.StemsPlayer.create('#my-stems-player', {
   // See the player options below
 });
 ```
