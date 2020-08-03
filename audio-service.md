@@ -56,6 +56,34 @@ Make a note of the `endpoints`. These will be needed later when sending data to 
 
 For reasons of security, install the audio service in an otherwise empty AWS account.
 
+### Updating the service
+
+todo
+
 ## Interacting with the audio-service
 
-Use the [AudioServiceClient](https://github.com/sound-ws/audio-service-client) to interact with the service.
+### Creating a mix
+
+In order to create a mix job we need to post some data to the audio service. Some things to note:
+
+- The `sources` point to the source wav files.
+- The `callbackUrl` is a url to which the mixed file will eventually be posted. This can (for example) be a [presigned S3 url](https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html).
+- The `getObjectUrl` is a url to which the browser will eventually be redirected. This can (for example) be a (signed) S3 url.
+
+See also [this example](https://github.com/sound-ws/stems-player-example/blob/master/examples/server/handle-download.js)
+
+```bash
+  curl -X POST -d "$(cat << JSON
+{
+    "sources": [{
+      "src": "https://my-stems/wavs/drums.wav?signature=...",
+      "volume": 0.4,
+    }, {
+      "src": "https://my-stems/wavs/vocals.wav?signature=...",
+      "volume": 0.2,
+    }],
+    "callbackUrl": "https://my-mixes.com/receive",
+    "getObjectUrl": "https://my-mixes.com/redirect/my-file.wav?signature=..."
+}
+JSON)" -H 'application/json' https://***.execute-api.eu-west-2.amazonaws.com/example/audio/create-mix
+```
