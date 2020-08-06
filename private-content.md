@@ -1,6 +1,6 @@
 # Serving private content while using the HttpStreamDriver
 
-The HttpStreamDriver consumes m3u8 files which contain an index of urls pointing towards segments of stems.
+The Stems Player Browser Component comes with a http-stream driver which consumes m3u8 files which contain an index of urls pointing towards segments of stems.
 
 1 suppose the browser fetches some stem data from your api
 

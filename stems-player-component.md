@@ -16,27 +16,7 @@ In addition, the player component is transpiled by babel to support `">0.25%, no
 
 The Sound Web Services Stems Player is hosted on a private github npm repository. Once you have been granted read-access to this repository, you can pull the npm package and use it in your application, [but first you must configure npm (or yarn) for use with GitHub Packages](https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-npm-for-use-with-github-packages).
 
-(a) then either create a package.json with the stems-player package in its dependencies.
-
-```json
-{
-  "name": "@my-org/my-app",
-  "version": "1.0.0",
-  "description": "Browser app that uses the @sound-ws/stems-player package",
-  "main": "index.js",
-  "dependencies": {
-    "@sound-ws/stems-player": "~1.0"
-  }
-}
-```
-
-and install the player
-
-```sh
-npm install
-```
-
-or (b) simply execute `npm install @sound-ws/stems-player@1.0.0` in the application root (containing the package.json).
+then simply execute `npm install @sound-ws/stems-player@1.0.0` in the application root (containing the package.json).
 
 ## Instantiating the Stems Player
 
@@ -50,11 +30,11 @@ Using a module bundler such as webpack, create an instance of the player.
 
 ```js
 // Either using es6 import
-import { StemsPlayer } from '@sound-ws/stems-player';
+import { create } from '@sound-ws/stems-player';
 // or es5 commonjs/requirejs
-const StemsPlayer = require('@sound-ws/stems-player');
+// const { create } = require('@sound-ws/stems-player');
 
-const player = SoundWS.StemsPlayer.create('#my-stems-player', {
+const player = create('#my-stems-player', {
   // See the player options below
 });
 ```
@@ -79,15 +59,15 @@ The player accepts the following options
 ```js
 const player = StemsPlayer.create('#my-stems-player', {
   renderer: {
-    background: 'rgba(0,0,0,0.6)',
+    background: 'rgb(52,58,64)',
+    backgroundStem: 'rgba(74,82,90)',
     color: 'white',
-    backgroundStem: 'rgba(0,0,0,0.1)',
+    accentColor: '#39d49e',
     waveform: {
+      // The stems player uses the drawer from wavesurfer
       // see https://wavesurfer-js.org/docs/options.html for a full list of accepted parameters for styling the waveform
-      waveColor: 'red',
-      progressColor: '#63ddb3',
-      barWidth: 0,
-      barGap: 0,
+      waveColor: '#bbb',
+      progressColor: '#39d49e',
     },
   },
   driver: {
@@ -132,6 +112,8 @@ fetch('http://my-backend-api/my-stems/stem-1234')
   .then((data) => {
     player
       .load({
+        'TRACK1234', // any sort of track id
+        label: data.trackName,
         stems: data.stems.map((stem) => {
           return {
             id: stem.id, // any
@@ -151,11 +133,11 @@ Please make sure that when loading any files from another server that the respon
 
 ## Waveforms
 
-Due to the fact that the player only downloads segments of each stem at a time, generating the waveform on the client is not feasible. Therefore the waveforms need to be pre-generated. The player uses the same waveform drawer as Wavesurfer [where you can find instructions on how to generate the waveforms](https://wavesurfer-js.org/faq/).
+Due to the fact that the player only downloads segments of each stem at a time, generating the waveform on the client is not feasible. Therefore the waveforms need to be pre-generated. The player currently uses the same waveform drawer as Wavesurfer [where you can find instructions on how to generate the waveforms](https://wavesurfer-js.org/faq/).
 
 ## API
 
-You can also call various functions to control the player: `player.start, player.pause, player.stop, player.destroy, player.export, player.seek`. Most should be self-explanatory, however we will highlight `player.destroy` and `player.export`.
+You can also call various functions to control the player: `player.start(), player.pause(), player.stop(), player.destroy(), player.export(), player.seek(percentage)`. Most should be self-explanatory, however we will highlight `player.destroy()` and `player.export()`.
 
 ### Destroying the player
 
@@ -163,7 +145,7 @@ To keep memory consumption in check, be sure to destroy the player when you no l
 
 ### Exporting data from the player
 
-One can export the state of the player by calling `player.export`. This will then return a simple json object of the form
+One can export the state of the player by calling `player.export()`. This will then return a simple json object of the form.
 
 ```json
 {
@@ -185,7 +167,7 @@ One can export the state of the player by calling `player.export`. This will the
 }
 ```
 
-which can be used to send to The Sound Web Services Audio Service in order to generate a high quality mix. (This will be a separate component. Documentation on this to follow)
+which can be used to [send to The Sound Web Services Audio Service](integration.md) in order to generate a high quality mix.
 
 ### Events
 
@@ -202,7 +184,8 @@ player.on('play', () => {});
 player.on('pause', () => {});
 
 // When the user seeks
-player.on('seek', () => {});
+// typeof pct === number
+player.on('seek', ({ pct }) => {});
 
 // When the player starts loading data
 player.on('buffering-start', () => {});
@@ -211,7 +194,8 @@ player.on('buffering-start', () => {});
 player.on('buffering-end', () => {});
 
 // When an error occurs
-player.on('error', (err) => {});
+// error instanceof Error
+player.on('error', (error) => {});
 
 // When the player completed playback
 player.on('end', () => {});
@@ -219,6 +203,14 @@ player.on('end', () => {});
 // When the player is destroyed
 player.on('destroy', () => {});
 ```
+
+## Example
+
+See also the [example](https://github.com/sound-ws/stems-player-example)
+
+## Issues
+
+Please log issues [here](https://github.com/sound-ws/stems-player/issues). (Private repo)
 
 ## Links
 
