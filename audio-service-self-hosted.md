@@ -101,6 +101,8 @@ Simply run `npx @sound-ws/audio-service deploy ...` against an existing STAGE. S
 
 Go to the AWS console / Cloudformation and delete the relevant stack (e.g. `sound-ws-audio-service-example`.).
 
+Make sure you always destroy any AWS resources you no longer need.
+
 ## Interacting with the audio-service: Creating a mix
 
 We provide here some low-level description on how to interact with the audio service. However some of this complexity will be handled by the [Audio Service Client](https://github.com/sound-ws/audio-service-client).

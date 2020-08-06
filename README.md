@@ -24,4 +24,4 @@ Copyright (C) Sound Web Services LTD - All Rights Reserved
 
 The Stems Player and the Audio Service is available under a commercial licence.
 
-Please contact us at licensing@sound.ws for inquiries.
+Please contact us at licensing@sound.ws for enquiries.
