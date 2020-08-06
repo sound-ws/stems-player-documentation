@@ -14,7 +14,7 @@ Internally, the download API uses:
 
 ## Installation
 
-The Sound Web Services Audio Service installer package is hosted on a private github npm repository. Once you have been granted read-access to this repository, you can use the installer to deploy the audio service into your own AWS environment, [but first you must configure npm (or yarn) for use with GitHub Packages](https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-npm-for-use-with-github-packages).
+The Sound Web Services Audio Service installer package is hosted on a private github npm repository. Once you have been granted read-access to this repository, you can use the installer to deploy the audio service into your own AWS environment, [but first you must configure npm (or yarn) for use with GitHub Packages](using-github-packages.md).
 
 ### Installing the ffmpeg lambda layer
 

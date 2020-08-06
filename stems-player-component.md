@@ -14,7 +14,7 @@ In addition, the player component is transpiled by babel to support `">0.25%, no
 
 ## Pulling the player code
 
-The Sound Web Services Stems Player is hosted on a private github npm repository. Once you have been granted read-access to this repository, you can pull the npm package and use it in your application, [but first you must configure npm (or yarn) for use with GitHub Packages](https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-npm-for-use-with-github-packages).
+The Sound Web Services Stems Player is hosted on a private github npm repository. Once you have been granted read-access to this repository, you can pull the npm package and use it in your application, [but first you must configure npm (or yarn) for use with GitHub Packages](using-github-packages.md).
 
 then simply execute `npm install @sound-ws/stems-player@1.0.0` in the application root (containing the package.json).
 
