@@ -60,9 +60,9 @@ Run
 
 ```bash
 # make sure your AWS credentials are set
-# stage can be anything, e.g. uat|prod
+# stage can be anything, e.g. uat|prod. Make sure that the stagename is not longer than 8 chars as AWS has lenght constraints on the names of the resources.
 # for $SHARED_SECRET use the shared secret that was created above
-# for $FFMPEG_LAMBDA_ARN use the arn of the ffmpeg layer above
+# for $FFMPEG_LAMBDA_ARN use the arn of the ffmpeg layer above. Make sure the lambda layer is in the same region as where you're deploying your service.
 npx @sound-ws/audio-service deploy \
     --region eu-west-2 \
     --stage example \
@@ -97,9 +97,9 @@ Make a note of the `endpoints`. These will be needed later when sending data to 
 
 Simply run `npx @sound-ws/audio-service deploy ...` against an existing `stage`. Seprate upgrading instructions will be provided [here](upgrading.md), if updating to a new major version requires additional steps.
 
-### Destroying the service
+### Cleaning up / Destroying the service
 
-Go to the AWS console / Cloudformation and delete the relevant stack (e.g. `sound-ws-audio-service-example`.).
+Go to the AWS console / Cloudformation and delete the relevant stack (e.g. `sound-ws-audio-service-example`.). The first attempt to delete will most likely fail as AWS is reluctant to destroy the deployment bucket. Delete again and instruct cloudformation to ignore the bucket, this can be deleted manually. Also nagivate to the dynamodb console to delete any lingering table.
 
 Make sure you always destroy any AWS resources you no longer need.
 
