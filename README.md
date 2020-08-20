@@ -15,7 +15,7 @@ The volume configuration can then be extracted from the Stems Player browser com
 Please see the following documents for more infomation:
 
 - [The stems player browser component](stems-player-component.md)
-- [Installing the audio service (self-hosted)](audio-service.md)
+- [Installing the audio service (self-hosted)](audio-service-self-hosted.md)
 - [Integrating the audio-service your backend](integration.md)
 
 ## Licence
