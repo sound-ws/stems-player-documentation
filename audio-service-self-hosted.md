@@ -95,7 +95,7 @@ Make a note of the `endpoints`. These will be needed later when sending data to 
 
 ### Updating the service
 
-Simply run `npx @sound-ws/audio-service deploy ...` against an existing STAGE. Seprate upgrading instructions will be provided [here](upgrading.md), if updating to a new major version requires additional steps.
+Simply run `npx @sound-ws/audio-service deploy ...` against an existing `stage`. Seprate upgrading instructions will be provided [here](upgrading.md), if updating to a new major version requires additional steps.
 
 ### Destroying the service
 
