@@ -68,7 +68,7 @@ Run
 ```bash
 # make sure your AWS credentials are set
 # stage can be anything, e.g. uat|prod. Make sure that the stagename is not longer than 8 chars as AWS has lenght constraints on the names of the resources.
-npx @sound-ws/audio-service deploy \
+npx @sound-ws/audio-service@1.0 deploy \
     --region $REGION \
     --stage $STAGE \
     --secret $SHARED_SECRET \
