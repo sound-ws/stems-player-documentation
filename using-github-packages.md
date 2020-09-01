@@ -7,7 +7,7 @@ Create a github developer token, paying attention to giving the correct scopes. 
 - repo
 - read:packages
 
-See also [here](https://docs.github.com/en/packages/publishing-and-managing-packages/about-github-packages#about-tokens)
+See also [here](https://docs.github.com/en/packages/publishing-and-managing-packages/about-github-packages#about-tokens
 
 ## Quickstart configuring npm for use with github packages
 

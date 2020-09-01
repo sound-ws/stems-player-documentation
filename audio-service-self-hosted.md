@@ -56,16 +56,21 @@ In addition the AWS credentials used for deployment needs to have sufficient per
 
 ### Installing the service
 
+With the options
+
+- REGION: To maximise performance in generating the audio mix, choose the same region where your audio is hosted.
+- STAGE: stage is used to namespace the resources and can be any string to (e.g. uat|prod) between 3-5 characters
+- SHARED_SECRET: use the shared secret that was created above
+- FFMPEG_LAMBDA_ARN: use the arn of the ffmpeg layer above. Make sure the lambda layer is installed in the same region as where you're deploying your service.
+
 Run
 
 ```bash
 # make sure your AWS credentials are set
 # stage can be anything, e.g. uat|prod. Make sure that the stagename is not longer than 8 chars as AWS has lenght constraints on the names of the resources.
-# for $SHARED_SECRET use the shared secret that was created above
-# for $FFMPEG_LAMBDA_ARN use the arn of the ffmpeg layer above. Make sure the lambda layer is in the same region as where you're deploying your service.
 npx @sound-ws/audio-service deploy \
-    --region eu-west-2 \
-    --stage example \
+    --region $REGION \
+    --stage $STAGE \
     --secret $SHARED_SECRET \
     --ffmpeg-layer-arn $FFMPEG_LAMBDA_ARN \
     -y
@@ -194,10 +199,11 @@ Which leads to a response with a location header pointing to the `getObjectUrl` 
 
 ## Security
 
-For reasons of security, install the audio service in an otherwise empty AWS account.
+For reasons of security,
 
-The `getObjectUrl` will provide access to the mixed audio. The sources also provide access to your audio. These data will be briefly stored in the service, but will be automatically deleted after 15 minutes.
-However, you should not provide urls with excessively long expiry. Expiry of any signed url should be maximum 15 minutes, or less - but longer enough to allow processing to complete.
+- Install the audio service in an isolated and otherwise empty AWS account
+- Ensure that the audio service is not given any priviledged access to _any_ sensitive AWS resources (by for example manually modifying the lambda execution role given to the lambda's of the services.). Access to any audio resources will be achieved via (pre-signed) url
+- The `getObjectUrl` will provide access to the mixed audio. The sources also provide access to your audio. These data will be briefly stored in the service, but will be automatically deleted after 15 minutes. However, you should not provide urls with excessively long expiry. Expiry of any signed url should be maximum 15 minutes, or less (but long enough to allow processing of the mixed audio file to complete)
 
 ## Example
 
