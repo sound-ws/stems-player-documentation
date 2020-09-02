@@ -72,8 +72,7 @@ npx @sound-ws/audio-service@1.0 deploy \
     --region $REGION \
     --stage $STAGE \
     --secret $SHARED_SECRET \
-    --ffmpeg-layer-arn $FFMPEG_LAMBDA_ARN \
-    -y
+    --ffmpeg-layer-arn $FFMPEG_LAMBDA_ARN
 ```
 
 This will deploy the audio service. The output will look something like this:
