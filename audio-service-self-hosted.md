@@ -105,6 +105,21 @@ Simply run `npx @sound-ws/audio-service deploy ...` against an existing `stage`.
 
 To make routing easier it is recommended that the download api is accessed over an [API gateway custom domain](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html), so that communication with the download api no longer has to use the (somewhat unwieldy) auto generated API gateway domain (e.g. https://***.execute-api.eu-west-2.amazonaws.com/stagename), but can instead use something like `https://api.mydomain.com/download-service`.
 
+In order to allow this, the download service will need to be told what endpoint to use, so that it can generate urls using that domain. So in addition to the installation options described above, we add
+
+- ENDPOINT: The custom domain endpoint
+
+```bash
+npx @sound-ws/audio-service@1.0 deploy \
+    --region $REGION \
+    --stage $STAGE \
+    --secret $SHARED_SECRET \
+    --ffmpeg-layer-arn $FFMPEG_LAMBDA_ARN \
+    --endpoint $ENDPOINT
+```
+
+Next one needs to configure apigateway (api mapping) to map the custom domain to the deployed api. [See](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html).
+
 ### Cleaning up / Destroying the service
 
 Go to the AWS console / Cloudformation and delete the relevant stack (e.g. `sound-ws-audio-service-example`.). The first attempt to delete will most likely fail as AWS is reluctant to destroy the deployment bucket. Delete again and instruct cloudformation to ignore the bucket, this can be deleted manually. Also nagivate to the dynamodb console to delete any lingering table.
