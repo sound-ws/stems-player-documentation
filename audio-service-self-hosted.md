@@ -68,7 +68,7 @@ Run
 ```bash
 # make sure your AWS credentials are set
 # stage can be anything, e.g. uat|prod. Make sure that the stagename is not longer than 8 chars as AWS has lenght constraints on the names of the resources.
-npx @sound-ws/audio-service@1.0 deploy \
+npx @sound-ws/audio-mix-service@1.0 deploy \
     --region $REGION \
     --stage $STAGE \
     --secret $SHARED_SECRET \
@@ -99,7 +99,7 @@ Make a note of the `endpoints`. These will be needed later when sending data to 
 
 ### Updating the service
 
-Simply run `npx @sound-ws/audio-service deploy ...` against an existing `stage`. Seprate upgrading instructions will be provided [here](upgrading.md), if updating to a new major version requires additional steps.
+Simply run `npx @sound-ws/audio-mix-service deploy ...` against an existing `stage`. Seprate upgrading instructions will be provided [here](upgrading.md), if updating to a new major version requires additional steps.
 
 ### Using a custom domain for the service
 
@@ -110,7 +110,7 @@ In order to allow this, the download service will need to be told what endpoint 
 - ENDPOINT: The custom domain endpoint
 
 ```bash
-npx @sound-ws/audio-service@1.0 deploy \
+npx @sound-ws/audio-mix-service@1.0 deploy \
     --region $REGION \
     --stage $STAGE \
     --secret $SHARED_SECRET \
@@ -229,4 +229,4 @@ See also the [example](https://github.com/sound-ws/stems-player-example)
 
 ## Issues
 
-Please log issues [here](https://github.com/sound-ws/audio-service/issues). (Private repo)
+Please log issues [here](https://github.com/sound-ws/audio-mix-service/issues). (Private repo)
