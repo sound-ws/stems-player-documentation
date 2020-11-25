@@ -1,0 +1,7 @@
+# CLI
+
+```BASH
+yarn global add @sound-ws/cli
+export PATH="$PATH:$(yarn global bin)"
+soundws
+```
