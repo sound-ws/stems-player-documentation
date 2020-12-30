@@ -1,6 +1,6 @@
 # @sound-ws/stems-player-documentation
 
-The Sound Web Services Stems Player is a music player for use in the browser which is capable of playing multiple stems offering the user to control the volumes of each stem. When used together with the Sound Web Services Audio Service, this volume configuration can then be used in order to mix high quality WAV files.
+The Sound Web Services Stems Player is a music player for use in the browser which is capable of playing multiple stems offering the user to control the volumes of each stem. When used together with the Sound Web Services Audio Mix Service, this volume configuration can then be used in order to mix high quality WAV files.
 
 ![Preview of Stems Player Component](img/screenshot.png)
 
